@@ -26,8 +26,11 @@ def handler(event, context):
             "Content-Type": "application/json"
         },
         "body": json.dumps({
-            "email": user_info.get("email"),
-            "name": user_info.get("name"),
-            "sub": user_info.get("sub")
+            "x-amzn-oidc-identity": headers.get("x-amzn-oidc-identity"),
+            "x-amzn-oidc-data": {
+                "email": user_info.get("email"),
+                "name": user_info.get("name"),
+                "sub": user_info.get("sub")
+            },
         })
     }

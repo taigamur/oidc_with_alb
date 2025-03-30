@@ -14,6 +14,9 @@ AWS Application Load Balancer (ALB) と OpenID Connect (OIDC) を使用した認
 3. Lambda関数は、ヘッダーからIDトークン（JWT）を抽出し、デコードしてユーザー情報を取得します
 4. 取得したユーザー情報（メールアドレス、名前、サブジェクト）をJSON形式で返します
 
+参考
+* https://docs.aws.amazon.com/ja_jp/elasticloadbalancing/latest/application/listener-authenticate-users.html
+
 ## デプロイ手順
 
 ### Gooleの認証情報の設定
@@ -52,3 +55,11 @@ AWS Application Load Balancer (ALB) と OpenID Connect (OIDC) を使用した認
 1. lambda関数を作成（例：oidc-with-alb-lambda）
 2. コードで`lambda_function.py`を作成し、同ファイルの内容をコピペ
 3. コード → ランタイム設定 でハンドラを`lambda_function.handler`に設定する
+
+
+## メモ
+##### JWTの構成は？
+Header, Payload, Signature の構成
+Header：どのアルゴリズムで署名しているかなど。
+Payload：ユーザー情報が入っている部分。Base64にエンコードされている。
+Signature：上２つに署名をつけたもの。公開鍵で署名を検証できる。
