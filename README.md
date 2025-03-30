@@ -14,11 +14,15 @@ AWS Application Load Balancer (ALB) と OpenID Connect (OIDC) を使用した認
 3. Lambda関数は、ヘッダーからIDトークン（JWT）を抽出し、デコードしてユーザー情報を取得します
 4. 取得したユーザー情報（メールアドレス、名前、サブジェクト）をJSON形式で返します
 
-## 前提条件
-
-- OIDCプロバイダー（Amazon Cognito、Auth0、Oktaなど）のアカウント
-
 ## デプロイ手順
+
+### Gooleの認証情報の設定
+
+- 「Google Auth Platform」 → 「クライアント」→ 「CREATE CLIENT」
+- OAuthクライアントIDを作成
+    - リダイレクトURI：`https://<domain>/oauth2/idpresponse`
+- クライアントID, クライアントシークレットを保管（JSONでダンロード）
+
 
 ### ALBの設定
 
@@ -35,8 +39,8 @@ AWS Application Load Balancer (ALB) と OpenID Connect (OIDC) を使用した認
    - 認証エンドポイント：`https://accounts.google.com/o/oauth2/v2/auth`
    - トークンエンドポイント：`https://oauth2.googleapis.com/token`
    - ユーザー情報エンドポイント：`https://openidconnect.googleapis.com/v1/userinfo`
-   - クライアントID：`各自設定した値`
-   - クライアントシークレット：`各自設定した値`
+   - クライアントID：`各自の値`
+   - クライアントシークレット：`各自の値`
 9. 「作成」ボタンをクリックします
 
 参考
